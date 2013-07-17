@@ -1,9 +1,20 @@
 require_relative 'document'
 
 describe Document do
+  before :each do
+    @text = 'A bunch of words'
+    @doc = Document.new('test', 'nobody', @text)
+  end
   it 'should hold on to contents' do
-    text = 'A bunch of words'
-    doc = Document.new('test', 'nobody', text)
-    doc.contents.should == text
+    @doc.contents.should == @text
+  end
+
+  it 'should know which words it has' do
+    @doc.words.should include('A')
+    @doc.words.should include('bunch')
+  end
+
+  it 'should have the right number of words' do
+    @doc.word_count.should == 4
   end
 end

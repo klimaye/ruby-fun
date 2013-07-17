@@ -8,4 +8,11 @@ class Document
     @contents = contents
   end
 
+  def words
+   @contents.split(' ')
+  end
+
+  def word_count
+    words.size
+  end
 end
