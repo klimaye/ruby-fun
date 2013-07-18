@@ -16,7 +16,7 @@ class Document
     words.size
   end
 
-  def +(other_contents)
-    return Document.new(@title, @author, "#{@contents} #{other_contents}")
+  def +(other)
+    return Document.new(@title, @author, "#{@contents} #{other.contents}")
   end
 end

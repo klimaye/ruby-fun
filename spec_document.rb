@@ -18,6 +18,8 @@ describe Document do
     @doc.word_count.should == 4
   end
   it 'should add documents correctly' do
-    @doc.+(' too much').word_count.should == 6
+    doc2 = Document.new(@doc.title, @doc.author, 'too much')
+    doc3 = @doc + doc2
+    doc3.word_count.should == 6
   end
 end
