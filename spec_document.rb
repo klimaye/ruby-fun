@@ -17,4 +17,7 @@ describe Document do
   it 'should have the right number of words' do
     @doc.word_count.should == 4
   end
+  it 'should add documents correctly' do
+    @doc.+(' too much').word_count.should == 6
+  end
 end

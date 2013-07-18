@@ -15,4 +15,8 @@ class Document
   def word_count
     words.size
   end
+
+  def +(other_contents)
+    return Document.new(@title, @author, "#{@contents} #{other_contents}")
+  end
 end
