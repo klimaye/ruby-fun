@@ -1,4 +1,5 @@
 require_relative 'document'
+require_relative 'shiny_document'
 
 describe Document do
   before :each do
@@ -29,4 +30,12 @@ describe Document do
     doc.font.should == Document.civ_font
     Document.default_paper_size.should == :a4
   end
+
+  it 'inherited class should have its unique value for class instance var' do
+    doc = Document.new(@doc.title, @doc.author, 'too much')
+    doc.font.should == :times
+    shiny_doc = ShinyDocument.new('','','')
+    shiny_doc.font.should == :courier
+  end
+
 end
