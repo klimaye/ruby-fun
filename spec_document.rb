@@ -22,4 +22,11 @@ describe Document do
     doc3 = @doc + doc2
     doc3.word_count.should == 6
   end
+
+  it 'on initialization it should have times as its font' do
+    doc = Document.new(@doc.title, @doc.author, 'too much')
+    doc.font.should == :times
+    doc.font.should == Document.civ_font
+    Document.default_paper_size.should == :a4
+  end
 end
