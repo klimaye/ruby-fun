@@ -1,7 +1,7 @@
 require_relative 'document'
 require_relative 'shiny_document'
 require_relative 'electronic_document'
-
+require_relative 'political_book'
 describe Document do
   before :each do
     @text = 'A bunch of words'
@@ -50,5 +50,10 @@ describe Document do
     ancestors = Document.ancestors
     ancestors.include?(WritingQuality).should == true
     ancestors.include?(AnotherModule).should == true
+  end
+
+  it 'sub class should be able to override a module method' do
+    pb = PoliticalBook.new('','','play fast and loose make no mistake')
+    pb.number_of_cliches.should == 0
   end
 end
