@@ -1,5 +1,6 @@
 require_relative 'document'
 require_relative 'shiny_document'
+require_relative 'electronic_document'
 
 describe Document do
   before :each do
@@ -37,5 +38,11 @@ describe Document do
     shiny_doc = ShinyDocument.new('','','')
     shiny_doc.font.should == :courier
   end
-
+  it 'should be able to count the number of cliches in text' do
+    text = 'play fast and loose make no mistake'
+    doc = Document.new('','',text)
+    doc.number_of_cliches.should == 2
+    edoc = ElectronicDocument.new('','',text)
+    edoc.number_of_cliches.should == 2
+  end
 end
