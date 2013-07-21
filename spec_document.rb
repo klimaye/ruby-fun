@@ -45,4 +45,10 @@ describe Document do
     edoc = ElectronicDocument.new('','',text)
     edoc.number_of_cliches.should == 2
   end
+
+  it 'its ancestors should include modules as super classes' do
+    ancestors = Document.ancestors
+    ancestors.include?(WritingQuality).should == true
+    ancestors.include?(AnotherModule).should == true
+  end
 end

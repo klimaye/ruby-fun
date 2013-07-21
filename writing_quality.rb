@@ -11,3 +11,7 @@ module WritingQuality
             end
       end
 end
+
+module AnotherModule
+
+end

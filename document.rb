@@ -2,6 +2,7 @@ require_relative 'writing_quality'
 class Document
 
   include WritingQuality
+  include AnotherModule
   #class variable (try not to use ever
   @@default_paper_size = :a4
 
