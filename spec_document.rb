@@ -56,4 +56,16 @@ describe Document do
     pb = PoliticalBook.new('','','play fast and loose make no mistake')
     pb.number_of_cliches.should == 0
   end
+
+  it 'supports a iterator block for the words in the document' do
+    text = 'play fast and loose make no mistake'
+    doc = Document.new('','',text)
+    word_array = []
+    #doc.each_word { |word| word_array.push(word) }
+    doc.each do |word| word_array.push(word) end
+    word_array.count.should == doc.words.count
+    pair_array = []
+    doc.each_word_pair do |word1, word2| pair_array.push([word1, word2]) end
+    pair_array.count.should == 6
+  end
 end

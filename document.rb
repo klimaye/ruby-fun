@@ -45,6 +45,19 @@ class Document
     words.size
   end
 
+  def each
+    words.each { |word| yield(word) }
+  end
+
+  def each_word_pair
+    words_array = words
+    index = 0;
+    while index < words_array.size - 1
+      yield words_array[index], words_array[index + 1]
+      index += 1
+    end
+  end
+
   def +(other)
     return Document.new(@title, @author, "#{@contents} #{other.contents}")
   end
