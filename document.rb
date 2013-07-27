@@ -17,6 +17,7 @@ class Document
   end
 
   #class instance variable
+  #anything defined with @ outside of any instance methods becomes class var
   @civ_font = :times
   class << self
     #create singleton methods
@@ -27,10 +28,28 @@ class Document
   attr_accessor :title, :author, :contents
 
   #instance variable
-  attr_accessor :paper_size, :font
+  attr_accessor :paper_size, :font, :loaded
 
   def on_load(&block)
+    #anything defined with @ in an instance method becomes instance var
     @load_listener = block
+  end
+
+  #this is great to log or do something with the passed in doc
+  #but to manipulate anything instance level, we need a
+  #instance level lambda
+  DEFAULT_CLASS_LEVEL_LOAD_LISTENER = lambda do |doc|
+    puts "inside default load listener"
+    @loaded = true
+    puts "@loaded = #{@loaded}!"
+  end
+
+  def self.show_loaded
+    puts "class level @loaded = #{@loaded}"
+  end
+
+  def show_loaded
+    puts "instance level @loaded = #{@loaded}"
   end
 
   def initialize(title, author, contents)
@@ -39,6 +58,12 @@ class Document
     @contents = contents
     @paper_size = @@default_paper_size
     @font = Document.civ_font
+    @loaded = false
+    @load_listener = lambda do |doc|
+      puts "inside instance default load listener"
+      @loaded = true
+      puts "@loaded = #{@loaded}!"
+    end
     yield (self) if block_given?
   end
 

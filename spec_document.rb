@@ -78,12 +78,20 @@ describe Document do
   end
 
   it 'should execute the explicit block passed to load' do
-    loaded = false
     doc = Document.new('','','')
     doc.on_load do |my_doc|
-      loaded = true
+      my_doc.loaded = true
     end
     doc.load
     doc.contents.should == 'LOADED'
+    doc.loaded.should == true
+  end
+
+  it 'should execute default explicit block' do
+    doc = Document.new('','','')
+    doc.load
+    Document.show_loaded
+    doc.show_loaded
+    doc.loaded.should == true
   end
 end
