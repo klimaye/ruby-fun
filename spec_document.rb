@@ -68,4 +68,22 @@ describe Document do
     doc.each_word_pair do |word1, word2| pair_array.push([word1, word2]) end
     pair_array.count.should == 6
   end
+
+  it 'should execute a block provided to the new (initializer)' do
+    text = "play fair"
+    doc = Document.new('','','') do |d|
+      d.contents = text
+    end
+    doc.contents.should == text
+  end
+
+  it 'should execute the explicit block passed to load' do
+    loaded = false
+    doc = Document.new('','','')
+    doc.on_load do |my_doc|
+      loaded = true
+    end
+    doc.load
+    doc.contents.should == 'LOADED'
+  end
 end

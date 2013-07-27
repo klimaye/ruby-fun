@@ -29,12 +29,17 @@ class Document
   #instance variable
   attr_accessor :paper_size, :font
 
+  def on_load(&block)
+    @load_listener = block
+  end
+
   def initialize(title, author, contents)
     @title = title
     @author = author
     @contents = contents
     @paper_size = @@default_paper_size
     @font = Document.civ_font
+    yield (self) if block_given?
   end
 
   def words
@@ -60,5 +65,10 @@ class Document
 
   def +(other)
     return Document.new(@title, @author, "#{@contents} #{other.contents}")
+  end
+
+  def load
+    @contents = 'LOADED'
+    @load_listener.call(self) if @load_listener
   end
 end
