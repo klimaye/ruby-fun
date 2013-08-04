@@ -52,6 +52,11 @@ class Document
     puts "instance level @loaded = #{@loaded}"
   end
 
+  def method_missing(method_name, *args)
+    msg = "#{method_name} method not found"
+    raise msg
+  end
+
   def initialize(title, author, contents)
     @title = title
     @author = author

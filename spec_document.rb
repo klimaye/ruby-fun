@@ -94,4 +94,10 @@ describe Document do
     doc.show_loaded
     doc.loaded.should == true
   end
+
+  it 'should throw custom method missing text' do
+    doc = Document.new('','','')
+    expect { doc.text  }.to raise_error(RuntimeError)
+    lambda { doc.text  }.should raise_error(RuntimeError,'text method not found')
+  end
 end
