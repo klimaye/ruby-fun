@@ -11,5 +11,6 @@ describe DocumentWrapper  do
   		@wrapper.word_count.should == @doc.word_count
   		@wrapper.load
   		@wrapper.loaded.should == true
+  		@wrapper.title.should == 'test'
   	end	
 end
