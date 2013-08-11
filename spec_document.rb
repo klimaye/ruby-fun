@@ -100,4 +100,23 @@ describe Document do
     expect { doc.text  }.to raise_error(RuntimeError)
     lambda { doc.text  }.should raise_error(RuntimeError,'text method not found')
   end
+
+  # it 'should be able to reload the instance methods' do
+  #   class Document
+  #     def abc
+  #       "abc"
+  #     end
+  #   end
+  #   pp Document.instance_methods(false)
+  #   Document.reload
+  #   pp Document.instance_methods(false)
+  #   Document.instance_methods(false).include?(:abc).should == true
+  # end
+  
+  it 'should be able to remove all instance methods' do
+    Document.remove_instance_methods
+    d = Document.new('','','')
+    puts d.methods(false).count
+    d.methods(false).count.should == 0
+  end
 end

@@ -1,6 +1,17 @@
 require_relative 'writing_quality'
 class Document
 
+  def self.reload
+    remove_instance_methods
+    load(__FILE__)
+  end
+
+  def self.remove_instance_methods
+    instance_methods(false).each do |method|
+      remove_method(method)
+    end
+  end
+
   include WritingQuality
   include AnotherModule
   #class variable (try not to use ever
@@ -35,14 +46,14 @@ class Document
     @load_listener = block
   end
 
-  #this is great to log or do something with the passed in doc
-  #but to manipulate anything instance level, we need a
-  #instance level lambda
-  DEFAULT_CLASS_LEVEL_LOAD_LISTENER = lambda do |doc|
-    puts "inside default load listener"
-    @loaded = true
-    puts "@loaded = #{@loaded}!"
-  end
+  # #this is great to log or do something with the passed in doc
+  # #but to manipulate anything instance level, we need a
+  # #instance level lambda
+  # DEFAULT_CLASS_LEVEL_LOAD_LISTENER = lambda do |doc|
+  #   puts "inside default load listener"
+  #   @loaded = true
+  #   puts "@loaded = #{@loaded}!"
+  # end
 
   def self.show_loaded
     puts "class level @loaded = #{@loaded}"
