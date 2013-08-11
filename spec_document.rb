@@ -112,7 +112,14 @@ describe Document do
   #   pp Document.instance_methods(false)
   #   Document.instance_methods(false).include?(:abc).should == true
   # end
-  
+
+    it 'should be able to add attr accessor' do    
+      Document.simple_attr_accessor('foreword')
+      doc = Document.new("SpecialOffer", "Acme Inc", "testing simple attr accessor")     
+      doc.methods.include?(:foreword).should == true
+      doc.methods.include?(:foreword=).should == true
+    end   
+
   it 'should be able to remove all instance methods' do
     Document.remove_instance_methods
     d = Document.new('','','')

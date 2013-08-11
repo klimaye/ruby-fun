@@ -1,6 +1,17 @@
 require_relative 'writing_quality'
 class Document
 
+  #this class level method will create a reader and writer akin to attr_accessor
+  def self.simple_attr_accessor(name)
+    writer_method_name = "#{name}="
+    reader_code = "def #{name}; @#{name}; end"
+    class_eval(reader_code)
+    define_method(writer_method_name) do |value|
+      var_name = "@#{name}"
+      instance_variable_set(var_name, value)
+    end
+  end
+
   def self.reload
     remove_instance_methods
     load(__FILE__)

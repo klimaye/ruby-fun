@@ -20,4 +20,11 @@ describe FormLetter do
 	it 'should raise RuntimeError when method missing convention broken' do
 		lambda { @offer_letter.sub_firstname }.should raise_error(RuntimeError, 'sub_firstname method not found')
 	end
+
+  	it 'should be able to add attr accessor' do    
+  		FormLetter.simple_attr_accessor('introduction')
+  		letter = FormLetter.new("SpecialOffer", "Acme Inc", "testing simple attr accessor")  		
+  		letter.methods.include?(:introduction).should == true
+      	letter.methods.include?(:introduction=).should == true  		
+  	end	
 end
