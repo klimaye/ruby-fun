@@ -6,7 +6,7 @@ class XmlRipper
     @before_action = proc {}
     @path_actions = {}
     @after_action = proc {}
-    block.call(self) if block
+    instance_eval(&block) if block
   end
 
   def on_path(path, &block)
@@ -40,12 +40,12 @@ class XmlRipper
 end
 
 
-ripper = XmlRipper.new do |r|
-  r.on_path('document/author') { |a| puts a.text }
-  r.on_path('document/chapter/title') { |t| puts t.text }
-  r.on_path('document/author') do |a|
+ripper = XmlRipper.new do
+  on_path('document/author') { |a| puts a.text }
+  on_path('document/chapter/title') { |t| puts t.text }
+  on_path('document/author') do |a|
     a.text = "J.R.R. Tolkien"
   end
-  r.after { |doc| puts doc }
+  after { |doc| puts doc }
 end
 ripper.run('fellowship.xml')
