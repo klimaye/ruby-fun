@@ -7,21 +7,21 @@ module Subject
 
   def notify_observers
     @observers.each do |ob|
-      ob.update(self)
+      ob.call(self)
     end
   end
 
-  def add_observer(new_ob)
+  def add_observer(&new_ob)
     @observers << new_ob
   end
 
-  def delete_observer(ob)
+  def delete_observer(&ob)
     @observers.delete(ob)
   end
 end
 
 class Employee
-  include Observable
+  include Subject
   attr_accessor :name, :title, :salary
 
   def initialize(name, title, salary)
@@ -33,8 +33,7 @@ class Employee
 
   def salary=(new_salary)
     @salary = new_salary
-    changed
-    notify_observers(self)
+    notify_observers
   end
 end
 
@@ -53,9 +52,15 @@ end
 fred = Employee.new('Fred', 'Crane Operator', 30000.0)
 
 payroll = Payroll.new
-fred.add_observer( payroll )
+fred.add_observer do |employee|
+  puts("Cut a new check for #{employee.name}!")
+  puts("His salary is now #{employee.salary}!")
+end
+#fred.add_observer( payroll )
 
 taxman =  Taxman.new
-fred.add_observer(taxman)
-
+#fred.add_observer(taxman)
+fred.add_observer do |employee|
+  puts "send #{employee.name} a new tax bill"
+end
 fred.salary=35000.0
