@@ -1,3 +1,4 @@
+require 'observer'
 module Subject
 
   def initialize
@@ -20,7 +21,7 @@ module Subject
 end
 
 class Employee
-  include Subject
+  include Observable
   attr_accessor :name, :title, :salary
 
   def initialize(name, title, salary)
@@ -32,7 +33,8 @@ class Employee
 
   def salary=(new_salary)
     @salary = new_salary
-    notify_observers
+    changed
+    notify_observers(self)
   end
 end
 
